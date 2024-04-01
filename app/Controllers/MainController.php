@@ -10,11 +10,17 @@ class MainController extends BaseController
 {
     public function dashboard()
     {
+        if (!session()->has('user')) {
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
+        }
         return view('dashboard');
     }
 
     public function settings()
     {
+        if (!session()->has('user')) {
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
+        }
         return view('settings');
     }
 
@@ -84,6 +90,14 @@ class MainController extends BaseController
 
             return redirect()->back()->with('success', "Update was successful");
         }
+    }
+
+    public function buddies()
+    {
+        if (!session()->has('user')) {
+            return redirect('login')->with('error', 'You must be logged in to access this page.');
+        }
+        return view('buddies');
     }
 
     public function logout()

@@ -21,6 +21,7 @@ $routes->post('reset/submit', [AuthController::class, 'submitResetPassword']);
 
 $routes->get('dashboard', [MainController::class, 'dashboard']);
 $routes->get('settings', [MainController::class, 'settings']);
+$routes->get('buddies', [MainController::class, 'buddies']);
 $routes->get('logout', [MainController::class, 'logout']);
 $routes->post('settings/update', [MainController::class, 'updateProfile']);
 $routes->post('settings/update-pass', [MainController::class, 'updatePassword']);

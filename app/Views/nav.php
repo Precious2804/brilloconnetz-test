@@ -11,7 +11,7 @@
                     <a class="nav-link active" aria-current="page" href="/dashboard">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Buddies</a>
+                    <a class="nav-link" href="/buddies">Buddies</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Discover</a>
