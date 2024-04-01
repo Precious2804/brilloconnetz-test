@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php include('head.php'); ?>
+<?php include('head.php');
+?>
 
 <body>
 
     <!-- Navigation bar -->
-    <?php include('nav.php'); ?>
+    <?php
+    $active1 = 'active';
+    include('nav.php');
+    ?>
 
     <!-- Profile content -->
     <div class="container mt-5">

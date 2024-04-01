@@ -5,16 +5,15 @@
 <body>
 
     <!-- Navigation bar -->
-    <?php include('nav.php'); ?>
+    <?php
+    $active3 = 'active';
+    include('nav.php');
+    ?>
+
 
     <!-- Profile content -->
     <div class="container mt-5">
         <div class="row">
-            <div class="col-md-8 offset-md-2 mb-2">
-                <a href="/logout">
-                    <div class="btn btn-danger logoutBtn">Logout</div>
-                </a>
-            </div>
             <div class="col-md-8 offset-md-2">
                 <?php if (session()->has('success')) : ?>
                     <div class="alert alert-success" role="alert">

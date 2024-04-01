@@ -97,7 +97,15 @@ class MainController extends BaseController
         if (!session()->has('user')) {
             return redirect('login')->with('error', 'You must be logged in to access this page.');
         }
-        return view('buddies');
+        $userModel = new UserModel();
+        $currentUser = session('user');
+
+        // Retrieve buddies excluding the current user
+        $buddies = $userModel->where('interest', $currentUser['interest'])
+            ->where('id !=', $currentUser['id']) // Exclude the current user
+            ->findAll();
+            
+        return view('buddies', ['buddies' => $buddies]);
     }
 
     public function logout()

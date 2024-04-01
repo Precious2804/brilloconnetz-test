@@ -36,7 +36,7 @@
                     <div class="mb-3">
                         <label for="interest" class="form-label">Special Interest</label>
                         <select class="form-select" name="interest" required>
-                            <option selected>Select your special interest</option>
+                            <option value="" selected>Select your special interest</option>
                             <option value="Football">Football</option>
                             <option value="Basketball">Basketball</option>
                             <option value="Ice Hockey">Ice Hockey</option>

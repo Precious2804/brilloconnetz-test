@@ -23,14 +23,15 @@
             border: 2px solid #fff;
             margin-top: -75px;
         }
+        .buddies-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
 
         .profile-details {
             margin-top: 20px;
-        }
-
-        .logoutBtn{
-            width: 20%;
-            float: right;
         }
 
         .footer {

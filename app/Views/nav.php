@@ -6,18 +6,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/dashboard">Profile</a>
+                    <a class="nav-link <?= $active1 ?? '' ?>" aria-current="page" href="/dashboard">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/buddies">Buddies</a>
+                    <a class="nav-link <?= $active2 ?? '' ?>" href="/buddies">Buddies</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Discover</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/settings">Setting & Privacy</a>
+                    <a class="nav-link <?= $active3 ?? '' ?>" href="/settings">Setting & Privacy</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/logout" class="nav-link">
+                        <div class="btn btn-danger logoutBtn">Logout</div>
+                    </a>
                 </li>
             </ul>
         </div>
