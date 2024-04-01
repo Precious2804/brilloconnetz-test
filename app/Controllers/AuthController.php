@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Models\ResetCodeModel;
 use App\Models\UserModel;
+use App\Models\VerificationCodeModel;
 use CodeIgniter\HTTP\Request;
 
 class AuthController extends BaseController
@@ -31,6 +33,7 @@ class AuthController extends BaseController
 
         $emailAddress = $this->request->getPost('email');
         $name = $this->request->getPost('name');
+        $verificationCode = rand(00000, 99999);
 
         $userData = [
             'name' => $name,
@@ -42,10 +45,14 @@ class AuthController extends BaseController
 
         $userModel->save($userData);
 
-        // return redirect('login')->with('successReg', "Registration was Successful");
+        $codeModel = new VerificationCodeModel();
+        $codeModel->save([
+            'email' => $emailAddress,
+            'code' => $verificationCode
+        ]);
 
         // Send verification email
-        $message = 'Hi ' . $name . ', <br><br>Please verify your account by clicking on the link below: <br>' . base_url() . '/verify?email=' . $emailAddress;
+        $message = 'Hi ' . $name . ', <br><br>Please verify your account by clicking on the link below: <br>' . base_url() . '/verify?email=' . $emailAddress . '&code=' . $verificationCode;
         $sendMail = $this->sendMailNotification($emailAddress, 'Account Verification', $message);
         if ($sendMail == true) {
             return redirect()->back()->with('success', $emailAddress);
@@ -55,7 +62,16 @@ class AuthController extends BaseController
     public function verify()
     {
         $email = $this->request->getVar('email');
+        $code = $this->request->getVar('code');
 
+        // Verify code as valid
+        $codeModel = new VerificationCodeModel();
+        $checkCode = $codeModel->where('code', $code)->first();
+        if (!$checkCode) {
+            return redirect('login')->with('error', "Invalid Verification Code");
+        }
+
+        // Update user's verification status
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
         if ($user) {
@@ -63,9 +79,14 @@ class AuthController extends BaseController
                 'is_verified' => 1
             ];
             $userModel->update($user['id'], $data);
+
+            // Delete the verification code
+            $codeModel->delete($checkCode['id']);
         }
-        return redirect('login')->with('success', "Verification was successfull");
+
+        return redirect('login')->with('success', "Verification was successful");
     }
+
 
     public function login()
     {
@@ -115,11 +136,18 @@ class AuthController extends BaseController
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
         $emailAddress = $this->request->getPost('email');
+        $resetCode = rand(00000, 99999);
+
+        $codeModel = new ResetCodeModel();
+        $codeModel->save([
+            'email' => $emailAddress,
+            'code' => $resetCode
+        ]);
 
         $userModel = new UserModel();
         $user = $userModel->where('email', $emailAddress)->first();
         if ($user) {
-            $message = 'Hi ' . $user['name'] . ',<br><br>You are receiving this email because of a password reset request by your email address.<br>Please visit the link below to complete the password reset process <br>' . base_url() . '/reset-password?email=' . $emailAddress;
+            $message = 'Hi ' . $user['name'] . ',<br><br>You are receiving this email because of a password reset request by your email address.<br>Please visit the link below to complete the password reset process <br>' . base_url() . '/reset-password?email=' . $emailAddress . '&code=' . $resetCode;
             $sendMail = $this->sendMailNotification($emailAddress, 'Password Reset', $message);
             if ($sendMail == true) {
                 return redirect()->back()->with('success', $emailAddress);
@@ -132,7 +160,8 @@ class AuthController extends BaseController
     public function resetPassword()
     {
         $email = $this->request->getVar('email');
-        return view('reset-password', ['email' => $email]);
+        $code = $this->request->getVar('code');
+        return view('reset-password', ['email' => $email, 'code' => $code]);
     }
 
     public function submitResetPassword()
@@ -140,6 +169,7 @@ class AuthController extends BaseController
         helper(['form']);
         $validation = \Config\Services::validation();
         $validation->setRules([
+            'code' => 'required',
             'email' => 'required|valid_email',
             'password' => 'required|min_length[6]',
             'password_confirm' => 'required|matches[password]'
@@ -147,7 +177,15 @@ class AuthController extends BaseController
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
+        $code = $this->request->getPost('code');
         $email = $this->request->getPost('email');
+
+        // Verify reset code as valid
+        $codeModel = new ResetCodeModel();
+        $checkCode = $codeModel->where('code', $code)->first();
+        if (!$checkCode) {
+            return redirect('login')->with('error', "Invalid Reset Code");
+        }
 
         $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
@@ -156,6 +194,9 @@ class AuthController extends BaseController
                 'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             ];
             $userModel->update($user['id'], $data);
+
+            // Delete the verification code
+            $codeModel->delete($checkCode['id']);
         }
         return redirect('login')->with('success', "Password has been updated Successfully");
     }

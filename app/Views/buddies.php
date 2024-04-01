@@ -19,7 +19,7 @@
         <div class="row mt-3">
             <?php
             foreach ($buddies as $item) { ?>
-                <div class="card col-md-3 mb-5">
+                <div class="card col-md-3 mb-3">
                     <img src="<?php echo base_url() . "avatar.jpg"; ?>" alt="Avatar" class="buddies-avatar mx-auto d-block">
                     <div class="profile-details text-center">
                         <h1><?= $item['name'] ?></h1>

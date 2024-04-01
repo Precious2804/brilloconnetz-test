@@ -27,7 +27,8 @@
                             </ul>
                         </div>
                     <?php endif ?>
-                    <input type="hidden" name="email" value="<?= session('email') ?>">
+                    <input type="hidden" name="email" value="<?= $email ?>">
+                    <input type="hidden" name="code" value="<?= $code ?>">
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
