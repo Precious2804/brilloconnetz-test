@@ -28,6 +28,11 @@
             margin-top: 20px;
         }
 
+        .logoutBtn{
+            width: 20%;
+            float: right;
+        }
+
         .footer {
             position: fixed;
             bottom: 0;

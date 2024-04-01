@@ -14,10 +14,16 @@
                 <div class="profile-cover"></div>
                 <img src="<?php echo base_url() . "avatar.jpg"; ?>" alt="Avatar" class="profile-avatar mx-auto d-block">
                 <div class="profile-details text-center">
-                    <h1><?= session('name') ?></h1>
-                    <p>Email: <?= session('email') ?></p>
-                    <p>Phone Number: <?= session('phone') ?></p>
-                    <p>Interest: <?= session('interest') ?></p>
+                    <h1><?= session('user')['name'] ?></h1>
+                    <p>Email: <?= session('user')['email'] ?></p>
+                    <p>Phone Number: <?= session('user')['phone'] ?></p>
+                    <p>Interest: <?= session('user')['interest'] ?></p>
+
+                    <div class="mt-5">
+                        <a href="/logout">
+                            <div class="btn btn-danger logoutBtn">Logout</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

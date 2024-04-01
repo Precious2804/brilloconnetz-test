@@ -92,7 +92,7 @@ class AuthController extends BaseController
 
         if ($user && password_verify($password, $user['password'])) {
             // Login successful, store user data in session
-            session()->set($user);
+            session()->set(['user' => $user]);
             return redirect()->to('dashboard');
         } else {
             return redirect()->back()->withInput()->with('error', 'Invalid Login Credentials');
