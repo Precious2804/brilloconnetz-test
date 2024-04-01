@@ -11,14 +11,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="profile-cover"></div>
-                <img src="<?php echo base_url() . "avatar.jpg"; ?>" alt="Avatar" class="profile-avatar mx-auto d-block">
-                <div class="profile-details text-center">
-                    <h1><?= session('name') ?></h1>
-                    <p>Email: <?= session('email') ?></p>
-                    <p>Phone Number: <?= session('phone') ?></p>
-                    <p>Interest: <?= session('interest') ?></p>
-                </div>
+
             </div>
         </div>
     </div>

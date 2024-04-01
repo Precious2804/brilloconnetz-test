@@ -20,3 +20,4 @@ $routes->get('reset-password', [AuthController::class, 'resetPassword']);
 $routes->post('reset/submit', [AuthController::class, 'submitResetPassword']);
 
 $routes->get('dashboard', [MainController::class, 'dashboard']);
+$routes->get('settings', [MainController::class, 'settings']);

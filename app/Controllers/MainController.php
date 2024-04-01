@@ -11,4 +11,8 @@ class MainController extends BaseController
     {
         return view('dashboard');
     }
+    public function settings()
+    {
+        return view('settings');
+    }
 }
