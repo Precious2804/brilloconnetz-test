@@ -213,7 +213,7 @@ class AuthController extends BaseController
 
         // Set email parameters
         $email->setTo($emailAddress);
-        $email->setFrom('info@itranxit.com', 'FullStack Dev Test');
+        $email->setFrom('email@example.com', 'FullStack Dev Test');
         $email->setSubject($subject);
         $email->setMessage($message);
 
