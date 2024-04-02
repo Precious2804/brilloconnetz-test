@@ -15,6 +15,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
+                <h1>Profile</h1>
                 <div class="profile-cover"></div>
                 <img src="<?php echo base_url() . "avatar.jpg"; ?>" alt="Avatar" class="profile-avatar mx-auto d-block">
                 <div class="profile-details text-center">

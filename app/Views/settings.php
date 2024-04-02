@@ -31,6 +31,7 @@
                 <?php endif ?>
             </div>
             <div class="col-md-8 offset-md-2 mb-5">
+                <h1 class="mb-4">Settings</h1>
                 <h5>Update Profile</h5>
                 <div class="card">
                     <div class="card-body">
